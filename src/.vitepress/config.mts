@@ -7,14 +7,14 @@ const mail_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   head: [
-    ['link',{rel:'icon',href:'/images/favicon.ico'}],
+    ['link',{rel:'icon',href:'https://a.hutao.run/www/favicon.ico'}],
   ],
   lang: 'zh-CN',
   title: "胡桃随笔",
   description: "咕，可以和解吗？",
   cleanUrls:true,
   themeConfig: {
-    logo: '/images/favicon.ico',
+    logo: 'https://a.hutao.run/www/favicon.ico',
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '主页', link: '/' },
