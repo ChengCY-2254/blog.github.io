@@ -6,6 +6,10 @@ const mail_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  sitemap:{
+    hostname:'https://www.hutao.run',
+    lastmodDateOnly:true,
+  },
   head: [
     ['link',{rel:'icon',href:'https://a.hutao.run/www/favicon.ico'}],
   ],
