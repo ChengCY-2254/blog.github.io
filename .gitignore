@@ -1,0 +1,4 @@
+node_modules
+src/.vitepress/cache/deps
+src/.vitepress/dist
+.DS_Store
