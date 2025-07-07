@@ -7,7 +7,7 @@ hero:
   text: "咕，可以和解吗？"
   tagline: "我时常收藏一大堆文章和教程，却没有查看它的动力，它就像我的赛博宝箱，向未知的人们炫耀。"
   image: 
-    src: https://a.hutao.run/www/59625e6855a7b604beb9197d2d4ee1d7.png
+    src: /images/59625e6855a7b604beb9197d2d4ee1d7.png
     alt: VitePress
   actions:
     #这里的theme是按钮主题

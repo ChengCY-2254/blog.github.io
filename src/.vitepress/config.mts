@@ -6,12 +6,13 @@ const mail_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  assetsDir:'/src/public',
   sitemap:{
     hostname:'https://www.hutao.run',
     lastmodDateOnly:true,
   },
   head: [
-    ['link',{rel:'icon',href:'https://a.hutao.run/www/favicon.ico'}],
+    ['link',{rel:'icon',href:'/images/favicon.ico'}],
     ['script',{},`<!-- Google Tag Manager -->
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -23,8 +24,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe>`]
   ],
   lang: 'zh-CN',
-  title: "胡桃随笔",
-  description: "咕，可以和解吗？",
+  title: "胡桃随笔(博客)",
+  description: "Cheng的博客，记录生活中的点滴，会发布一些叨叨和笔记，欢迎访问！",
   cleanUrls:true,
   themeConfig: {
     logo: 'https://a.hutao.run/www/favicon.ico',
