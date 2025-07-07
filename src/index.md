@@ -19,7 +19,7 @@ hero:
     #   link: /api-examples
     - theme: brand
       text: 开宝箱
-      link: /notes/开宝箱
+      link: /notes/赛博宝箱
     - theme: alt
       text: 一些叨叨
       link: https://hutao.run

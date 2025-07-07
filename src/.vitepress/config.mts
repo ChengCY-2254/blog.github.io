@@ -28,7 +28,7 @@ export default defineConfig({
           { text: '赛博宝箱', link: '/notes/赛博宝箱' },
           { text: 'vitepress生成更简洁的url', link: '/notes/vitepress生成更简洁的url' },
           { text: 'KMS激活服务器', link: '/notes/kms激活服务器' },
-          { text: 'macOS 15使用体验',link: '/notes/macOS15使用体验' },
+          { text: 'macOS 15使用体验',link: '/notes/macos15使用体验' },
           { text: '关于OpenResty反向代理长任务API提前返回504的解决办法', link: '/notes/关于OpenResty反向代理长任务API提前返回504的解决办法' },
           { text: '关于mac崩坏星穹铁道3.4版本playcover侧载无法启动的解决办法',link: '/notes/关于mac崩坏星穹铁道3.4版本playcover侧载无法启动的解决办法' },
           { text: 'git仓库中的隐私数据泄露',link: '/notes/git仓库中的隐私数据泄露' },
