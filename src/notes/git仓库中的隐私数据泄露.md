@@ -1,15 +1,14 @@
 ---
-desc: "git仓库中的隐私数据泄露"
-tags: 
-  - "git"
-  - "github"
-  - "数据泄露"
-  - "GitGuardian"
+tags:
+  - git
+  - github
+  - 数据泄露
+  - GitGuardian
 updateTime: 2025-07-06 13:38:06
 outline: deep
+title: git仓库中的隐私数据泄露
+description: git仓库中的token数据泄露
 ---
-
-# git仓库中的隐私数据泄露
 
 今天在开开心心的写一个[tg图片机器人](https://github.com/ChengCY-2254/telegram-images-bot)的代码。
 突然收到了来自[GitGuardian](https://www.gitguardian.com)的一封邮件，翻译过来一看，tg token泄露了。

@@ -1,13 +1,12 @@
 ---
-desc: "一个kms服务器，通过命令快速激活Windows副本"
-tags: 
-  - "kms"
-  - "windows"
+tags:
+  - kms
+  - windows
 updateTime: 2025-07-06 13:38:06
 outline: deep
+title: Windows KMS激活服务器
+description: 一个kms服务器，通过命令快速激活Windows副本
 ---
-
-# Windows KMS激活服务器
 
 kms server地址: `kms.hutao.run`
 

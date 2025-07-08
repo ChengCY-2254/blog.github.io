@@ -1,13 +1,13 @@
 ---
-desc: "本文描述了如何使用Nginx代理生成更简洁的url"
-tags: 
- - "vitepress"
- - "nginx"
- - "url"
+tags:
+    - vitepress
+    - nginx
+    - url
 updateTime: 2025-07-06 14:02:04
 outline: deep
+title: 使用Nginx代理vitepress的时候生成更简洁的url
+description: 本文描述了如何使用Nginx代理生成更简洁的url
 ---
-# 使用Nginx代理vitepress的时候生成更简洁的url
 
 在[官方文档](https://vitepress.dev/zh/guide/routing#generating-clean-url)中，不知为何没有给出对Nginx服务器配置更简洁url的文档。
 

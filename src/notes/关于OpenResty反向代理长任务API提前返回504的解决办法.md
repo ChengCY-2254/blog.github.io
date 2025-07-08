@@ -1,14 +1,14 @@
 ---
-desc: "OpenResty反向代理API提前关闭连接导致系统报错"
-tags: 
-  - "OpenResty"
-  - "API"
-  - "Nginx"
-  - "504 time out"
+title: 关于OpenResty反向代理长任务API提前返回504的解决办法
+description: OpenResty反向代理API提前关闭连接导致系统报错
+tags:
+  - OpenResty
+  - API
+  - Nginx
+  - 504 time out
 updateTime: 2025-06-30 12:57:24
 outline: deep
 ---
-# 关于OpenResty反向代理长任务API提前返回504的解决办法
 
 > 当你的API明明正常运行，OpenResty却总是返回504 Gateway Time-out？我们来解决这个问题。
 

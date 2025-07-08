@@ -1,12 +1,12 @@
 ---
-tags: 
-  - "teamspeak使用体验"
-  - "服务搭建"
+tags:
+  - teamspeak使用体验
+  - 服务搭建
 updateTime: 2025-06-19 01:39:31
 outline: deep
+title: teamspeak服务器搭建
+description: teamspeak使用体验
 ---
-
-# teamspeak服务器搭建
 
 在1panel中直接创建app（稍微，有点懒）。
 

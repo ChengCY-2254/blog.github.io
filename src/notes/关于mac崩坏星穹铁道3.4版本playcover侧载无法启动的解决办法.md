@@ -1,15 +1,13 @@
 ---
-desc: "OpenResty反向代理API提前关闭连接导致系统报错"
-tags: 
-
-  - "崩坏星穹铁道"
-  - "PlayCover"
-  - "crashes"
+tags:
+  - 崩坏星穹铁道
+  - PlayCover
+  - crashes
 updateTime: 2025-07-02 10:52:23
 outline: deep
+description: 关于mac崩坏星穹铁道3.4版本playcover侧载无法启动的解决办法
+title: mac崩坏星穹铁道3.4版本playcover侧载无法启动的解决办法
 ---
-# 关于mac崩坏星穹铁道3.4版本playcover侧载无法启动的解决办法
-
 在/etc/hosts文件下加入对以下域名的屏蔽。
 
 如果你玩的是国服

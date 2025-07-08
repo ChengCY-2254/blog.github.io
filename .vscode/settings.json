@@ -1,0 +1,11 @@
+{
+    "frontMatter.framework.id": "other",
+    "frontMatter.content.publicFolder": "",
+    "frontMatter.content.pageFolders": [
+        {
+            "title": "notes",
+            "path": "[[workspace]]/src/notes"
+        }
+    ],
+    "frontMatter.git.enabled": true
+}

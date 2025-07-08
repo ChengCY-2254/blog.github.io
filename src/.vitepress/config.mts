@@ -28,7 +28,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`]
   description: "Cheng的博客，记录生活中的点滴，会发布一些叨叨和笔记，欢迎访问！",
   cleanUrls:true,
   themeConfig: {
-    logo: 'https://a.hutao.run/www/favicon.ico',
+    logo: '/images/favicon.ico',
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '主页', link: '/' },
