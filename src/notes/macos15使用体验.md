@@ -7,7 +7,7 @@ outline: deep
 title: macOS 15使用体验
 description: 记录了从macOS14升级到macOS15的使用体验
 ---
-
+# macOS15使用体验
 
 总体尚可，UI和色彩都重新调整了一下，但苹果传统艺能还在发作。（异常的资源占用）
 

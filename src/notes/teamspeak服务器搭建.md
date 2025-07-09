@@ -7,6 +7,7 @@ outline: deep
 title: teamspeak服务器搭建
 description: teamspeak使用体验
 ---
+# teamspeak服务器搭建
 
 在1panel中直接创建app（稍微，有点懒）。
 

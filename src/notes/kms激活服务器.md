@@ -7,6 +7,7 @@ outline: deep
 title: Windows KMS激活服务器
 description: 一个kms服务器，通过命令快速激活Windows副本
 ---
+# Windows KMS激活服务器
 
 kms server地址: `kms.hutao.run`
 
