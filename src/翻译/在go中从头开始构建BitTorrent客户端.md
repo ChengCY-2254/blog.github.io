@@ -7,7 +7,7 @@ categories: ["内容翻译"]
 outline: [2,3]
 ---
 <script setup>
-import HoverNote from '../.vitepress/components/HoverNote.vue'
+import HoverNote from '../.vitepress/theme/components/HoverNote.vue'
 const text_http = "一些Tracker使用UDP二进制协议来节省带宽"
 const text_dht = `DHT网络`
 const text_pex = "节点交换"
