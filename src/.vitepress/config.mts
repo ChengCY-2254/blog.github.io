@@ -1,12 +1,13 @@
 import { defineConfig } from 'vitepress'
 import { readdir } from 'fs';
+import { withMermaid } from 'vitepress-plugin-mermaid';
 
 // https://icon-sets.iconify.design/?query=mail
 const mail_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8-7l8-5V6l-8 5l-8-5v2z"/></svg>';
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
-  assetsDir:'/src/public',
+export default withMermaid({
+  assetsDir:'/src/images',
   sitemap:{
     hostname:'https://www.hutao.run',
     lastmodDateOnly:true,
@@ -28,7 +29,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`]
   description: "Cheng的博客，记录生活中的点滴，会发布一些叨叨和笔记，欢迎访问！",
   cleanUrls:true,
   themeConfig: {
-    logo: '/images/favicon.ico',
+    logo: '/favicon.ico',
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '主页', link: '/' },
@@ -38,6 +39,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`]
     sidebar: [
       {
         text: '笔记',
+        collapsed:false,
         items: [
           { text: '赛博宝箱', link: '/notes/赛博宝箱' },
           { text: 'vitepress生成更简洁的url', link: '/notes/vitepress生成更简洁的url' },
@@ -53,6 +55,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`]
       //   text: '笔记',
       //   items:generator_didebar('config/notes')
       // },
+      {
+        text:'奇思妙想',
+        collapsed:true,
+        items:[
+          {text:'2025-07-08',link:'/奇思妙想/2025-07-08'},
+        ]
+      },
+      {
+        text:'翻译内容',
+        items:[
+          {text:'在go中从头开始构建BitTorrent客户端',link:'/翻译/在go中从头开始构建BitTorrent客户端'}
+        ]
+      },
       {
         text: 'vitepress 示例',
         items: [
@@ -84,7 +99,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`]
   vite:{
     server:{
       allowedHosts:["dev1.hutao.run"]
-    }
+    },
   },
   markdown:{
     //https://vitepress.dev/zh/guide/markdown#custom-containers
