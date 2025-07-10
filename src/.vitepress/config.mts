@@ -99,6 +99,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`]
         infoLabel: '信息',
         detailsLabel: '详情'
       },
+      image:{
+        lazyLoading:true,
+      },
       codeCopyButtonTitle: '复制代码',
     },
   })
