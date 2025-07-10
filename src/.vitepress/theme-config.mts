@@ -9,6 +9,7 @@ export const sidebar_item: DefaultTheme.SidebarItem[] = [
         collapsed: false,
         items: [
             { text: '赛博宝箱', link: '/notes/赛博宝箱' },
+            { text: '在Cherry Studio使用AI和mcp快速对网页进行翻译', link: '/notes/在Cherry Studio使用AI和mcp快速对网页进行翻译' },
             { text: 'vitepress生成更简洁的url', link: '/notes/vitepress生成更简洁的url' },
             { text: 'KMS激活服务器', link: '/notes/kms激活服务器' },
             { text: 'macOS 15使用体验', link: '/notes/macos15使用体验' },
