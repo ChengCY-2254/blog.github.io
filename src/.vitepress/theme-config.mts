@@ -1,12 +1,30 @@
 import { type DefaultTheme } from 'vitepress'
+// 右上角的快捷导航
 export const nav_item: DefaultTheme.NavItem[] = [
     { text: '主页', link: '/' },
-    { text: '笔记', link: '/notes/赛博宝箱' }
+    { text: '笔记', link: '/notes/赛博宝箱' },
+    { text: '翻译', link: '/翻译/index' },
 ]
+// 翻译导航
+const translate: DefaultTheme.SidebarItem[] = [
+    { text: '工程进度', link: '/翻译/index' },
+    { text: '在go中从头开始构建BitTorrent客户端', link: '/翻译/在go中从头开始构建BitTorrent客户端' },
+    // {
+    //     text: '通过C和C++手把手构建属于你的Redis', collapsed: false, link: '/翻译/通过C和C++手把手构建属于你的Redis/index',base:'/翻译/通过C和C++手把手构建属于你的Redis', items: [
+    //         {
+    //             text: '从无到有创建一个Redis', link: '/01/index', items: [
+    //                 { text: '绪论', link: '/01/绪论' },
+    //             ]
+    //         },
+    //         { text: '进阶内容' },
+    //     ]
+    // }
+]
+
 export const sidebar_item: DefaultTheme.SidebarItem[] = [
     {
         text: '笔记',
-        collapsed: false,
+        collapsed: true,
         items: [
             { text: '赛博宝箱', link: '/notes/赛博宝箱' },
             { text: '在Cherry Studio使用AI和mcp快速对网页进行翻译', link: '/notes/在Cherry Studio使用AI和mcp快速对网页进行翻译' },
@@ -28,9 +46,7 @@ export const sidebar_item: DefaultTheme.SidebarItem[] = [
     },
     {
         text: '翻译内容',
-        items: [
-            { text: '在go中从头开始构建BitTorrent客户端', link: '/翻译/在go中从头开始构建BitTorrent客户端' }
-        ]
+        items: translate,
     },
     {
         text: 'vitepress 示例',
