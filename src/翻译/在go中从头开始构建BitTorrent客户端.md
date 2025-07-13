@@ -27,11 +27,19 @@ const text_little_endian_decoded = "以小端序解释相同的字节将使0xE11
 >
 > 译者述：在原文中，提到有中文翻译，但是，我点进去发现指向的网站已经消失，所以决定自行翻译内容。
 >
+> 联系了原作者（Jesse Li）发现互联网档案馆里存档了中文的翻译文本，这能给我很大的帮助。
+>
+> 进一步发现来原始翻译者的github pages，原来只是不用之前那个域名了。
+>
+> 也算是为我自己学习了知识吧。笑~
+>
 > 翻译的方式是机器翻译加人工检查，所以如果有错误翻译，请联系我。
+>
+> 感谢原文作者Jesse Li，中文原始翻译作者oneman233
 
 **作者前言**：在从海盗湾下载MP3文件之间，完整的过程是什么？在这篇帖子里，我们将实现BitTorrent协议来下载Debian。查看[源代码](https://github.com/veggiedefender/torrent-client/)或者直接查看[内容汇总](#整体整合)。
 
-这篇文章也有[俄语](https://web.archive.org/web/20200616163517if_/https://4gophers.ru/articles/bittorrent/#.Xuj0zivLerw)、[韩语](https://markruler.github.io/posts/go/building-bittorrent-client/)版本。
+这篇文章也有[俄语](https://web.archive.org/web/20200616163517if_/https://4gophers.ru/articles/bittorrent/#.Xuj0zivLerw)、[韩语](https://markruler.github.io/posts/go/building-bittorrent-client/)、[中文原始翻译者-oneman233](https://oneman233.github.io/YongGOCongLingJianLiBitTorrentKeHuDuan/)版本。
 
 BitTorrent是一种用于在Internet上下载和分发文件的协议。与传统的客户端/服务器关系相比，下载者链接到中央服务器（例如：在Netfix上观看电影，或加载您正在阅读的网页），BitTorrent网络的参与者（称为**对等节点**）会*互相*下载文件片段--这就是使其成为**点对点**协议的原因。我们将研究其工作原理，并构建我们自己的客户端，该客户端可以找到对等节点并在它们之间交换数据。
 
@@ -39,7 +47,7 @@ BitTorrent是一种用于在Internet上下载和分发文件的协议。与传�
 
 该协议在过去的20年间逐步演化，众多开发者和组织为其添加了诸多扩展功能，例如加密传输、私有种子以及新型的节点发现机制。但为了确保项目快速完成，我们仅实现2001年的原始协议规范。
 
-我们将使用[Debian ISO](https://cdimage.debian.org/debian-cd/current/amd64/bt-cd/#indexlist)文件作为我们的小白鼠，因为它比较大但又不是特别大，作为一个流行的Linux发行版，会有许多P2P节点供我们连接。我们要避免盗版内容相关的法律和道德问题。
+我们将使用[Debian ISO](https://cdimage.debian.org/debian-cd/current/amd64/bt-cd/#indexlist)文件作为我们的小白鼠，因为它的大小刚好合适，作为一个流行的Linux发行版，会有许多P2P节点供我们连接。我们要避免盗版内容相关的法律和道德问题。
 
 ::: details 这是作者的公益捐款信息
 Consider donating to a local community bail fund.
@@ -400,10 +408,10 @@ func Read(r io.Reader) (*Message, error) {
 
 ![bitfield](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filebitfield.png)
 
-通过使用*位*而不是*字节*，这种数据结构会非常紧凑。我们可以在单个字节的空间（一个布尔值大小）中塞入八个分片的信息。代价是访问时会稍微复杂些。计算机可寻址的最小内存单元是字节，因此如果要获取我们的比特位，我们必须进行一些**位操作**：
+通过使用*位*而不是*字节*，这种数据结构会非常紧凑。我们可以在单个字节的空间（一个布尔值大小）中塞入八个数据的信息。代价是访问时会稍微复杂些。计算机可寻址的最小内存单元是字节，因此如果要获取我们的比特位，我们必须进行一些**位操作**：
 
 ```go
-// 位字段表示一个对等方所拥有的片段
+// 位字段表示一个对等方所拥有的分片
 type Bitfield []byte
 
 // HasPiece 函数告诉我们某个位字段是否有特定的分片
