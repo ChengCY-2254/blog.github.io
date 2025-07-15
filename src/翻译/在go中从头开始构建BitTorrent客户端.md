@@ -11,7 +11,7 @@ import HoverNote from '@/theme/components/HoverNote.vue'
 const text_http = "一些Tracker使用UDP二进制协议来节省带宽"
 const text_dht = `DHT网络`
 const text_pex = "节点交换"
-const text_magnet_link = "百度：https://baike.baidu.com/item/磁力链接/5867775\r\nwiki：https://zh.wikipedia.org/wiki/磁力链接"
+const text_magnet_link = "磁力链接（Magnet URI）是一种基于文件内容生成的唯一标识符（哈希值），用于在P2P网络中直接下载文件，无需依赖中心化服务器，只需通过支持磁力链接的软件（如BitTorrent客户端）即可启动下载。"
 const text_preimage_attack = "是密码学中的一种破译手段，用于密码散列函数上寻找含有特定哈希值的消息。"
 const text_little_endian_decoded = "以小端序解释相同的字节将使0xE11A=57626"
 </script>
@@ -63,13 +63,13 @@ In the tech community, we talk a lot about inclusivity and diversity. Now is the
 
 这里有一个问题：我们想用BitTorrent下载文件时，这种P2P协议需要我们找到其它节点来获取数据，但一开始去哪里找到这些节点呢？
 
-这就像初来乍到一座新城市想结交朋友--总得先去广场或公园混个脸熟吧？Tracker的作用正是充当这类「热门据点」，它是帮助节点互相牵线的中心服务器。本质上只是一个跑<HoverNote triggerText="Http" :note="text_http"/>的一个网页服务器，比如Debian的官方Tracker服务器：<http://bttracker.debian.org:6969>
+这就像初来乍到一座新城市想结交朋友--总得先去广场或公园混个脸熟吧？Tracker的作用正是充当这类「热门据点」，它是帮助节点互相牵线的中心服务器。本质上只是一个跑<HoverNote triggerText="HTTP" :note="text_http"/>的一个网页服务器，比如Debian的官方Tracker服务器：<http://bttracker.debian.org:6969>
 
 ![FileTrackers](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filetrackers.png)
 
 当然，如果这些服务器帮人散播盗版内容，则可能遭遇**FBI OPEN THE DOOR**。
 你可能看到过有关某某BT服务器被封禁的新闻。现在，新的方法将通过分布式节点发现，省略了中间环节。
-如果你对这些感兴趣，可以研究这些术语：<HoverNote triggerText="DHT" :note="text_dht"/>、<HoverNote triggerText="PEX" :note="text_pex"/>和磁力链接。
+如果你对这些感兴趣，可以研究这些术语：<HoverNote triggerText="DHT" :note="text_dht"/>、<HoverNote triggerText="PEX" :note="text_pex"/>和<HoverNote triggerText="磁力链接" :note="text_magnet_link"/>。
 
 ## 解析.torrent文件
 
