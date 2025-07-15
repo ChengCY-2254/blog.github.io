@@ -18,8 +18,11 @@ hero:
     #   text: API Examples
     #   link: /api-examples
     - theme: brand
-      text: 开宝箱
+      text: 笔记
       link: /notes/赛博宝箱
+    - theme: brand
+      text: 文章翻译
+      link: /翻译/
     - theme: alt
       text: 一些叨叨
       link: https://hutao.run
