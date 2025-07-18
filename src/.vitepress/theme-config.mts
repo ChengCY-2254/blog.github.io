@@ -10,17 +10,18 @@ const nav_item: DefaultTheme.NavItem[] = [
 const translate: DefaultTheme.SidebarItem[] = [
     { text: '工程进度', link: '/翻译/index' },
     { text: '在go中从头开始构建BitTorrent客户端', link: '/翻译/在go中从头开始构建BitTorrent客户端' },
-    // {
-    //     text: '通过C和C++手把手构建属于你的Redis', collapsed: false, base: '/翻译/通过C和C++手把手构建属于你的Redis', link: '/index', items: [
-    //         {
-    //             text: '从无到有创建一个Redis', link: '/01/index', items: [
-    //                 { text: '绪论', link: '/01/01-绪论' },
-    //                 { text: '套接字编程', link: '/01/02-套接字编程' },
-    //             ]
-    //         },
-    //         { text: '进阶内容' },
-    //     ]
-    // }
+    {
+        text: '通过C和C++手把手构建属于你的Redis', collapsed: false, base: '/翻译/通过C和C++手把手构建属于你的Redis', link: '/index', items: [
+            {
+                text: '从无到有创建一个Redis', link: '/01/index', items: [
+                    { text: '绪论', link: '/01/01-绪论' },
+                    { text: '套接字编程', link: '/01/02-套接字编程' },
+                    // { text: 'TCP服务器和客户端',link:'/01/03-TCP服务器和客户端'}
+                ]
+            },
+            { text: '进阶内容' },
+        ]
+    }
 ]
 
 const sidebar_item: DefaultTheme.SidebarItem[] | DefaultTheme.SidebarMulti = [
@@ -37,13 +38,6 @@ const sidebar_item: DefaultTheme.SidebarItem[] | DefaultTheme.SidebarMulti = [
             { text: '关于mac崩坏星穹铁道3.4版本playcover侧载无法启动的解决办法', link: '/notes/关于mac崩坏星穹铁道3.4版本playcover侧载无法启动的解决办法' },
             { text: 'git仓库中的隐私数据泄露', link: '/notes/git仓库中的隐私数据泄露' },
             { text: 'teamspeak服务器搭建', link: '/notes/teamspeak服务器搭建' },
-        ]
-    },
-    {
-        text: '奇思妙想',
-        collapsed: true,
-        items: [
-            { text: '2025-07-08', link: '/奇思妙想/2025-07-08' },
         ]
     },
     {

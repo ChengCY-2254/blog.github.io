@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress'
-import { readdir } from 'fs';
 import { withMermaid } from 'vitepress-plugin-mermaid';
 import { nav_item,sidebar_item } from './theme-config.mts';
 import path from 'path';
@@ -22,16 +21,7 @@ export default withMermaid(
     description: "Cheng的博客，记录生活中的点滴，会发布一些翻译和笔记，欢迎访问！",
     cleanUrls: true,
     head: [
-      ['link', { rel: 'icon', href: '/images/favicon.ico' }],
-      ['script', {}, `<!-- Google Tag Manager -->
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-W67QD2N3');
-<!-- End Google Tag Manager -->`],
-      ['noscript', {}, `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W67QD2N3"
-height="0" width="0" style="display:none;visibility:hidden"></iframe>`]
+      ['link', { rel: 'icon', href: '/images/favicon.ico' }]
     ],
     themeConfig: {
       logo: '/favicon.ico',
@@ -75,6 +65,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`]
       },
       darkModeSwitchTitle: '切换夜间模式',
       lightModeSwitchTitle: '切换日间模式',
+      darkModeSwitchLabel:'夜间模式',
       returnToTopLabel: '返回顶部',
       lastUpdatedText: '上次更新',
       footer: {
@@ -113,33 +104,3 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`]
     },
   })
 )
-
-
-// 这个方法用于生成文章目录导航
-// `fs_path`是文件系统中的路径，`url_path`是对应的网站URL路径，但文件路由已经确定了内容，请不要随意修改
-// 生成的sidebar是一个数组，包含每个文章的标题和链接
-function generator_didebar(fs_path: string) {
-
-  class SidebarItem {
-    text: string;
-    link: string;
-  }
-  let sidebar: SidebarItem[] = [];
-  readdir(fs_path, (err, files) => {
-    if (err) {
-      console.error(`无法完成构建，目录${fs_path}读取错误:`, err);
-      throw err;
-    }
-    files = files.filter(file => file.endsWith('.md') && file !== 'README.md');
-    files.forEach(file => {
-      const title = file.replace('.md', '');
-
-      const __link = fs_path.replace("config", "") + '/' + file.replace(".md", "");
-      sidebar.push({
-        text: title,
-        link: __link
-      })
-    })
-  })
-  return sidebar;
-}

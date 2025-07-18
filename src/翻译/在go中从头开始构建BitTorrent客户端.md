@@ -116,7 +116,7 @@ e
 
 ![文件分片](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filepieces.png)
 
-这种机制使我们能够在下载过程中注意验证每个分片的完整性。这使得BitTorrent能够抵御意外损坏或恶意种子污染攻击。除非攻击者能够通过<HoverNote triggerText="原像攻击" :note="text_preimage_attack"/>破解SHA-1算法，否则我们一定能够获得请求的准确内容。
+这种机制使我们能够在下载过程中验证每个分片的完整性。这使得BitTorrent能够抵御意外损坏或恶意种子污染攻击。除非攻击者能够通过<HoverNote triggerText="原像攻击" :note="text_preimage_attack"/>破解SHA-1算法，否则我们一定能够获得请求的准确内容。
 
 虽然编写bencode解析器很有意思，但解析它不是我们今天的重点。
 我发现Fredrik Lundh的[50行解析器](https://web.archive.org/web/20200105114449/https://effbot.org/zone/bencode.htm)特别有启发性。对于这个项目，我使用了[github.com/jackpal/bencode-go](https://github.com/jackpal/bencode-go)
@@ -149,7 +149,7 @@ func Open(r io.Reader) (*bencodeTorrent, error) {
 }
 ```
 
-因为我喜欢让我的结构体保持扁平，并且我喜欢将我的应用程序结构与我的序列化结构分开，所以我导出了一个名为`TorrentFile`的结构，并编写了一些辅助函数来进行两者之间的互相转换。
+因为我喜欢让我项目中的结构体保持扁平，同时让我的应用程序结构体与我的序列化结构体分开，所以我导出了一个名为`TorrentFile`的结构体，并编写了一些辅助函数来负责进行两者之间的转换。
 
 需要注意的一点是，我将`pieces`（之前是一个字符串）拆分成哈希切片（`[20]byte`），一边后续可以方便地访问单个哈希。我还计算了整个`bencoded`信息字典（包括文件名、大小和分片哈希）的SHA-1哈希值。我们将其称为**infohash**，当我们的tracker与对等节点通讯时，它会是Tracker和节点间识别文件的唯一标识符。其具体作用我们稍后会详细展开。
 

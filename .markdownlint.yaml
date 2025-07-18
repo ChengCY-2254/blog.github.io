@@ -12,3 +12,5 @@ MD013:
   headings: true
   strict: false
   stern: false
+# 在ansi代码块中使用$符号
+MD014: false

@@ -42,23 +42,6 @@
           "title": "Categories",
           "name": "categories",
           "type": "categories"
-        },
-        {
-          "title": "outline",
-          "name": "outline",
-          "type": "fields",
-          "fields": [
-            {
-              "title": "0",
-              "name": "0",
-              "type": "number"
-            },
-            {
-              "title": "1",
-              "name": "1",
-              "type": "number"
-            }
-          ]
         }
       ]
     }
