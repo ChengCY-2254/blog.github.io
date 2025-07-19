@@ -75,6 +75,7 @@ const sidebar: DefaultTheme.SidebarItem[] | DefaultTheme.SidebarMulti = {
             { text: '关于mac崩坏星穹铁道3.4版本playcover侧载无法启动的解决办法', link: '/notes/关于mac崩坏星穹铁道3.4版本playcover侧载无法启动的解决办法' },
             { text: 'git仓库中的隐私数据泄露', link: '/notes/git仓库中的隐私数据泄露' },
             { text: 'teamspeak服务器搭建', link: '/notes/teamspeak服务器搭建' },
+            { text: 'Shadowsocks服务端搭建', link: '/notes/Shadowsocks服务端搭建' },
         ]
     }],
     '/': [
