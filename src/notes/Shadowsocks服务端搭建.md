@@ -162,9 +162,9 @@ sysctl net.ipv4.tcp_congestion_control
 4. **加密方法**：`aes-256-gcm`
 
 推荐客户端：
-| 平台       | 客户端名称                  |
 
-|------------|----------------------------|
+| 平台       | 客户端名称                  |
+|:---:|:---|
 | Windows    | shadowsocks-windows        |
 | macOS      | ShadowsocksX-NG           |
 | Android    | shadowsocks-android       |
