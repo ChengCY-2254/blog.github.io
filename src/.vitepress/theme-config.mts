@@ -77,15 +77,6 @@ const sidebar: DefaultTheme.SidebarItem[] | DefaultTheme.SidebarMulti = {
             { text: 'teamspeak服务器搭建', link: '/notes/teamspeak服务器搭建' },
         ]
     }],
-    '/奇思妙想/': [
-        {
-            text: '奇思妙想',
-            collapsed: true,
-            items: [
-                { text: '2025-07-08', link: '/奇思妙想/2025-07-08' },
-            ]
-        }
-    ],
     '/': [
         {
             text: '关于',
