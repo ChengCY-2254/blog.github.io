@@ -283,30 +283,30 @@ ssize_t send(int fd, const void *buf, size_t len, int flags);   // 写
 我们的任务是，让客户端先向服务器发送数据，接着读取服务器返回的响应数据，最后关闭该连接即可。
 
 ```cpp
-  int fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (fd < 0) {
-        die("socket()");
-    }
+int fd = socket(AF_INET, SOCK_STREAM, 0);
+if (fd < 0) {
+    die("socket()");
+}
 
-    struct sockaddr_in addr = {};
-    addr.sin_family = AF_INET;
-    addr.sin_port = ntohs(1234);
-    addr.sin_addr.s_addr = ntohl(INADDR_LOOPBACK);  // 127.0.0.1
-    int rv = connect(fd, (const struct sockaddr *)&addr, sizeof(addr));
-    if (rv) {
-        die("connect");
-    }
+struct sockaddr_in addr = {};
+addr.sin_family = AF_INET;
+addr.sin_port = ntohs(1234);
+addr.sin_addr.s_addr = ntohl(INADDR_LOOPBACK);  // 127.0.0.1
+int rv = connect(fd, (const struct sockaddr *)&addr, sizeof(addr));
+if (rv) {
+    die("connect");
+}
 
-    char msg[] = "hello";
-    write(fd, msg, strlen(msg));
+char msg[] = "hello";
+write(fd, msg, strlen(msg));
 
-    char rbuf[64] = {};
-    ssize_t n = read(fd, rbuf, sizeof(rbuf) - 1);
-    if (n < 0) {
-        die("read");
-    }
-    printf("server says: %s\n", rbuf);
-    close(fd);
+char rbuf[64] = {};
+ssize_t n = read(fd, rbuf, sizeof(rbuf) - 1);
+if (n < 0) {
+    die("read");
+}
+printf("server says: %s\n", rbuf);
+close(fd);
 ```
 
 `INADDR_LOOPBACK`被定义为`0x7f000001`，也就是我们常用的`127.0.0.1`。
