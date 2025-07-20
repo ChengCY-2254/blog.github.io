@@ -16,7 +16,7 @@ const translate: DefaultTheme.SidebarItem[] = [
                 text: '从无到有创建一个Redis', link: '/01/index', items: [
                     { text: '绪论', link: '/01/01-绪论' },
                     { text: '套接字编程', link: '/01/02-套接字编程' },
-                    // { text: 'TCP服务器和客户端',link:'/01/03-TCP服务器和客户端'}
+                    { text: 'TCP服务器和客户端',link:'/01/03-TCP服务器和客户端'}
                 ]
             },
             { text: '进阶内容' },
