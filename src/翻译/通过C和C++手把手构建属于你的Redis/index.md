@@ -5,6 +5,9 @@ date: 2025-07-12 23:58:00
 tags: ["翻译","C","C++","Redis"]
 categories: ["内容翻译"]
 outline: [2,3]
+next:
+    text: '目录'
+    link: '/翻译/通过C和C++手把手构建属于你的Redis/01/'
 ---
 <script setup="ts">
 //使用**内容**加粗的时候记得换行，不知道为什么，如果不换行，它就检查不出来。

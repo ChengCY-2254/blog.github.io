@@ -5,6 +5,9 @@ date: 2025-07-13 9:58:00
 tags: ["翻译","C","C++","Redis"]
 categories: ["内容翻译"]
 outline: [2,3]
+next:
+    text: '01.绪论'
+    link: '/翻译/通过C和C++手把手构建属于你的Redis/01/01-绪论'
 ---
 <script setup="ts">
 import HoverNote from '@/theme/components/HoverNote.vue'
