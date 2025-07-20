@@ -1,9 +1,8 @@
 <template>
-  <span class="hover-note">
-    <span class="trigger">{{ triggerText }}*</span>
-    <span class="note">{{ note }}</span>
-  </span>
-
+  <div class="hover-note" @click.stop ref="container">
+    <span class="trigger" @click="toggleNote">{{ triggerText }}*</span>
+    <div class="note" v-show="isNoteVisible">{{ note }}</div>
+  </div>
 </template>
 
 <script>
@@ -11,8 +10,29 @@ export default {
   props: {
     triggerText: String,
     note: String
+  },
+  data() {
+    return {
+      isNoteVisible: false
+    };
+  },
+  mounted() {
+    // 添加全局点击事件监听器
+    document.addEventListener('click', this.handleOutsideClick);
+  },
+  beforeDestroy() {
+    // 组件销毁前移除事件监听
+    document.removeEventListener('click', this.handleOutsideClick);
+  },
+  methods: {
+    toggleNote() {
+      this.isNoteVisible = !this.isNoteVisible;
+    },
+    handleOutsideClick(_event) {
+      this.isNoteVisible = false;
+    }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -20,8 +40,11 @@ export default {
   position: relative;
   display: inline-block;
 }
+.trigger {
+  color: #1838a4;
+  cursor: pointer;
+}
 .note {
-  visibility: hidden;
   position: absolute;
   bottom: 100%;
   left: 50%;
@@ -30,12 +53,7 @@ export default {
   padding: 0.5rem;
   border-radius: 4px;
   min-width: 200px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-.trigger:hover + .note {
-  visibility: visible;
-}
-.trigger{
-  color: #1838a4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  margin-bottom: 8px; /* 添加间距避免紧贴触发元素 */
 }
 </style>
