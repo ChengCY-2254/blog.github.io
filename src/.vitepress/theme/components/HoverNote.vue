@@ -5,36 +5,41 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    triggerText: String,
-    note: String
-  },
-  data() {
-    return {
-      isNoteVisible: false
-    };
-  },
-  mounted() {
-    // 添加全局点击事件监听器
-    document.addEventListener('click', this.handleOutsideClick);
-  },
-  beforeDestroy() {
-    // 组件销毁前移除事件监听
-    document.removeEventListener('click', this.handleOutsideClick);
-  },
-  methods: {
-    toggleNote() {
-      this.isNoteVisible = !this.isNoteVisible;
-    },
-    handleOutsideClick(_event) {
-      this.isNoteVisible = false;
-    }
-  }
-};
-</script>
+<script lang="ts" setup>
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 
+const { triggerText,note } = defineProps({
+  triggerText: {
+    type: String,
+    required: true
+  },
+  note: {
+    type: String,
+    required: true
+  }
+})
+
+const isNoteVisible = ref(false)
+
+const toggleNote = () => {
+  isNoteVisible.value = !isNoteVisible.value
+}
+
+onMounted(() => {
+  // 添加全局点击事件监听器
+  document.addEventListener('click', handleOutsideClick)
+})
+const handleOutsideClick = (event: MouseEvent) => {
+  const container = document.querySelector('.hover-note')
+  if (container && !container.contains(event.target as Node)) {
+    isNoteVisible.value = false
+  }
+}
+onBeforeUnmount(() => {
+  // 组件销毁前移除事件监听
+  document.removeEventListener('click', handleOutsideClick)
+})
+</script>
 <style scoped>
 .hover-note {
   position: relative;
