@@ -1,11 +1,9 @@
 import Theme from "vitepress/theme"
-import {h} from 'vue'
 
 export default{
-    ...Theme,
-    Layout(){
-        return h(Theme.Layout,null,{
-            "hover-note":()=> h(import('./components/HoverNote.vue')),
-        })
-    }
+    extends:Theme,
+    enhanceApp({app}) {
+        app.component('ECharts', () => import('./components/ECharts.vue'))
+        app.component('HoverNote', () => import('./components/HoverNote.vue'))
+    },
 }
