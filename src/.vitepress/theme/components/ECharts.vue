@@ -1,8 +1,22 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue'
-import * as echarts from 'echarts'
-import type { ECharts, EChartsOption } from 'echarts'
+import * as echarts from 'echarts/core'
+import { BarChart, LineChart } from 'echarts/charts'
+import { TitleComponent, TooltipComponent, GridComponent, LegendComponent } from 'echarts/components'
+import { CanvasRenderer } from 'echarts/renderers'
+
+import type { EChartsOption } from 'echarts'
 import { useData } from 'vitepress'
+
+echarts.use([
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  LegendComponent,
+  BarChart,
+  LineChart,
+  CanvasRenderer
+])
 
 const props = defineProps({
   option: {
@@ -23,7 +37,7 @@ const props = defineProps({
 const emit = defineEmits(['chart-ready', 'chart-updated'])
 
 const chartRef = ref<HTMLElement | null>(null)
-const chartInstance = ref<ECharts | null>(null)
+const chartInstance = ref<echarts.EChartsType | null>(null)
 const { isDark } = useData()
 
 // 初始化图表

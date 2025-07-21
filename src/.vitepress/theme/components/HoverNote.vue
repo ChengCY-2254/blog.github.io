@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 
-const { triggerText,note } = defineProps({
+const { triggerText, note } = defineProps({
   triggerText: {
     type: String,
     required: true
@@ -20,45 +20,68 @@ const { triggerText,note } = defineProps({
 })
 
 const isNoteVisible = ref(false)
+const container = ref<HTMLElement | null>(null)
 
-const toggleNote = () => {
+
+const toggleNote = (e: MouseEvent) => {
+  e.stopPropagation()
   isNoteVisible.value = !isNoteVisible.value
 }
 
-onMounted(() => {
-  // 添加全局点击事件监听器
-  document.addEventListener('click', handleOutsideClick)
-})
 const handleOutsideClick = (event: MouseEvent) => {
-  const container = document.querySelector('.hover-note')
-  if (container && !container.contains(event.target as Node)) {
+  if (container.value && !container.value.contains(event.target as Node)) {
     isNoteVisible.value = false
   }
 }
+
+onMounted(() => {
+  document.addEventListener('click', handleOutsideClick)
+})
+
 onBeforeUnmount(() => {
-  // 组件销毁前移除事件监听
   document.removeEventListener('click', handleOutsideClick)
 })
 </script>
+
 <style scoped>
 .hover-note {
   position: relative;
   display: inline-block;
+  vertical-align: middle;
 }
+
 .trigger {
   color: #1838a4;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
+
 .note {
   position: absolute;
   bottom: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(-4px);
   background: var(--vp-c-bg-soft);
-  padding: 0.5rem;
-  border-radius: 4px;
+  padding: 0.75rem;
+  border-radius: 8px;
   min-width: 200px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  margin-bottom: 8px; /* 添加间距避免紧贴触发元素 */
+  max-width: 280px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 8px;
+  z-index: 20;
+  transition: opacity 0.2s, transform 0.2s;
+  border: 1px solid var(--vp-c-divider);
+}
+
+/* 添加小箭头装饰 */
+.note::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--vp-c-bg-soft);
 }
 </style>

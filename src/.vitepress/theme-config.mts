@@ -41,6 +41,7 @@ const sidebar: DefaultTheme.SidebarItem[] | DefaultTheme.SidebarMulti = {
             { text: 'git仓库中的隐私数据泄露', link: '/notes/git仓库中的隐私数据泄露' },
             { text: 'teamspeak服务器搭建', link: '/notes/teamspeak服务器搭建' },
             { text: 'Shadowsocks服务端搭建', link: '/notes/Shadowsocks服务端搭建' },
+            { text: '图表演示', link: '图表示例' },
         ]
     }],
     '/': [
