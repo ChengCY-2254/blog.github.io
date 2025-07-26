@@ -2,8 +2,8 @@
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts/core'
 import { BarChart, LineChart } from 'echarts/charts'
-import { TitleComponent, TooltipComponent, GridComponent, LegendComponent } from 'echarts/components'
-import { CanvasRenderer } from 'echarts/renderers'
+import { TitleComponent, TooltipComponent, GridComponent, LegendComponent, DatasetComponent, TransformComponent, } from 'echarts/components'
+import { SVGRenderer } from 'echarts/renderers'
 
 import type { EChartsOption } from 'echarts'
 import { useData } from 'vitepress'
@@ -15,7 +15,9 @@ echarts.use([
   LegendComponent,
   BarChart,
   LineChart,
-  CanvasRenderer
+  SVGRenderer,
+  DatasetComponent,
+  TransformComponent
 ])
 
 const props = defineProps({
