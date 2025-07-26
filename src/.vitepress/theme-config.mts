@@ -19,6 +19,7 @@ const translate: DefaultTheme.SidebarItem[] = [
                     { text: '套接字编程', link: '/01/02-套接字编程' },
                     { text: 'TCP服务器和客户端',link:'/01/03-TCP服务器和客户端'},
                     { text: '请求和响应协议', link: '/01/04-请求和响应协议' },
+                    { text: '并发IO模型', link: '/01/05-并发IO模型' },
                 ]
             },
             { text: '进阶内容' },
