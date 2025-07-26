@@ -64,18 +64,21 @@
 <script setup>
 import { ref, computed } from 'vue';
 
-// 预设颜色
 const presetColors = ref([
-  { name: '红色', color: '#ff1493' },
-  { name: '粉红', color: '#fc9acd' },
-  { name: '紫色', color: '#a231b3' },
-  { name: '蓝色', color: '#2313bb' },
-  { name: '浅绿', color: '#53d7b6' },
-  { name: '绿色', color: '#53d760' },
-  { name: '黄色', color: '#f4e607' },
-  { name: '橙色', color: '#f47c07' },
-  { name: '棕黄', color: '#b0df22' },
+  { name: '品牌色', color: '#6366f1' },   // Indigo
+  { name: '成功', color: '#22c55e' },   // Green
+  { name: '警告', color: '#f97316' },   // Orange
+  { name: '危险', color: '#ef4444' },   // Red
+  { name: '玫瑰', color: '#f43f5e' },   // Rose
+  { name: '暖黄', color: '#facc15' },   // Yellow
+  { name: '青色', color: '#14b8a6' },   // Teal
+  { name: '天蓝', color: '#38bdf8' },   // Sky
+  { name: '白', color: '#ffffff' },
+  { name: '浅灰', color: '#9ca3af' },  // Gray-400
+  { name: '深灰', color: '#374151' },  // Gray-700
+  { name: '黑', color: '#111827' },   // Gray-900
 ]);
+
 
 // 核心数据：存储所有文本段
 const textSegments = ref([
