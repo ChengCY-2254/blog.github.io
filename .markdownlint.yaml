@@ -2,7 +2,7 @@ MD025:
   front_matter_title: ""
   level: 1
 MD033:
-  allowed_elements: ["pre","script","style","code","a","img","link","HoverNote","iframe","ECharts"]
+  allowed_elements: ["pre","script","style","code","a","img","link","HoverNote","iframe","OverwatchColorGenerator"]
 MD013:
   line_length: 250
   heading_line_length: 80

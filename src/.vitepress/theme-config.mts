@@ -4,7 +4,8 @@ const nav_item: DefaultTheme.NavItem[] = [
     { text: '主页', link: '/' },
     { text: '笔记', link: '/notes/赛博宝箱' },
     { text: '翻译', link: '/翻译/index' },
-    { text: '关于作者', link: '/author' }
+    { text: '关于作者', link: '/author' },
+    { text: '工具', link: '/tools/index' },
 ]
 // 翻译导航
 const translate: DefaultTheme.SidebarItem[] = [
@@ -51,6 +52,12 @@ const sidebar: DefaultTheme.SidebarItem[] | DefaultTheme.SidebarMulti = {
             items: [
                 { text: '关于作者', link: '/author' }
             ]
+        }
+    ],
+    "/tools/": [
+        {
+            text: '守望先锋颜色代码生成器',
+            link: '/tools/ow-text-color',
         }
     ]
 }
