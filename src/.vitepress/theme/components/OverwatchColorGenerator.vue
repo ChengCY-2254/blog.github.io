@@ -109,7 +109,7 @@ const addSegment = () => {
   textSegments.value.push({
     id: Date.now(),
     text: '',
-    color: '#ffffff', // 默认为白色
+    color: '#0c1018', // 默认为黑色
   });
 };
 
