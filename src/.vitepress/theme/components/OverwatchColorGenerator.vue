@@ -65,11 +65,11 @@
 import { ref, computed } from 'vue';
 
 const presetColors = ref([
-  { name: '品牌色', color: '#6366f1' },   // Indigo
-  { name: '成功', color: '#22c55e' },   // Green
-  { name: '警告', color: '#f97316' },   // Orange
-  { name: '危险', color: '#ef4444' },   // Red
-  { name: '玫瑰', color: '#f43f5e' },   // Rose
+  { name: '靛蓝', color: '#6366f1' },   // Indigo
+  { name: '绿色', color: '#22c55e' },   // Green
+  { name: '橙色', color: '#f97316' },   // Orange
+  { name: '红色', color: '#ef4444' },   // Red
+  { name: '玫瑰红', color: '#f43f5e' },   // Rose
   { name: '暖黄', color: '#facc15' },   // Yellow
   { name: '青色', color: '#14b8a6' },   // Teal
   { name: '天蓝', color: '#38bdf8' },   // Sky
@@ -200,16 +200,16 @@ const copyToClipboard = async () => {
   height: 36px;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: 10%;
   cursor: pointer;
   background-color: transparent;
 }
 .color-picker::-webkit-color-swatch {
-  border-radius: 50%;
+  border-radius: 10%;
   border: 2px solid var(--vp-c-border);
 }
 .color-picker::-moz-color-swatch {
-  border-radius: 50%;
+  border-radius: 10%;
   border: 2px solid var(--vp-c-border);
 }
 
