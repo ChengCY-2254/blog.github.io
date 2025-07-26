@@ -79,9 +79,9 @@ const presetColors = ref([
 
 // 核心数据：存储所有文本段
 const textSegments = ref([
-  { id: Date.now(), text: '我是', color: '#f26700' },
-  { id: Date.now() + 1, text: '火星', color: '#47C07FF' },
-  { id: Date.now() + 2, text: '摩西', color: '#53d7b6' }
+  { id: Date.now(), text: '我是', color: '#f47c07' },
+  { id: Date.now() + 1, text: '火星', color: '#ff1493' },
+  { id: Date.now() + 2, text: '摩西', color: '#fc9acd' }
 ]);
 
 // 计算属性，用于生成最终的游戏代码
