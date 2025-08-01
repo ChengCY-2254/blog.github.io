@@ -60,6 +60,10 @@ const sidebar: DefaultTheme.SidebarItem[] | DefaultTheme.SidebarMulti = {
         {
             text: '守望先锋颜色代码生成器',
             link: '/tools/ow-text-color',
+        },
+        {
+            text: '思维导图工具',
+            link: '/tools/mindmap',
         }
     ]
 }

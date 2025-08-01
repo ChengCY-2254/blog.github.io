@@ -1,0 +1,3 @@
+[submodule "src/public/Ai-Markmap"]
+	path = src/public/Ai-Markmap
+	url = https://github.com/kongkongyo/Ai-Markmap.git
