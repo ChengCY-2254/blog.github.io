@@ -43,7 +43,7 @@ const text_little_endian_decoded = "以小端序解释相同的字节将使0xE11
 
 BitTorrent是一种用于在Internet上下载和分发文件的协议。与传统的客户端/服务器关系相比，下载者链接到中央服务器（例如：在Netfix上观看电影，或加载您正在阅读的网页），BitTorrent网络的参与者（称为**对等节点**）会*互相*下载文件片段--这就是使其成为**点对点**协议的原因。我们将研究其工作原理，并构建我们自己的客户端，该客户端可以找到对等节点并在它们之间交换数据。
 
-![客户端服务器点对点示例图](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_fileclient-server-p2p.png)
+![客户端服务器点对点示例图](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_fileclient-server-p2p.webp)
 
 该协议在过去的20年间逐步演化，众多开发者和组织为其添加了诸多扩展功能，例如加密传输、私有种子以及新型的节点发现机制。但为了确保项目快速完成，我们仅实现2001年的原始协议规范。
 
@@ -65,7 +65,7 @@ In the tech community, we talk a lot about inclusivity and diversity. Now is the
 
 这就像初来乍到一座新城市想结交朋友--总得先去广场或公园混个脸熟吧？Tracker的作用正是充当这类「热门据点」，它是帮助节点互相牵线的中心服务器。本质上只是一个跑<HoverNote triggerText="HTTP" :note="text_http"/>的一个网页服务器，比如Debian的官方Tracker服务器：<http://bttracker.debian.org:6969>
 
-![FileTrackers](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filetrackers.png)
+![FileTrackers](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filetrackers.webp)
 
 当然，如果这些服务器帮人散播盗版内容，则可能遭遇**FBI OPEN THE DOOR**。
 你可能看到过有关某某BT服务器被封禁的新闻。现在，新的方法将通过分布式节点发现，省略了中间环节。
@@ -114,7 +114,7 @@ e
 
 在这个文件中，我们可以找到Tracker服务器的URL、创建日期（Unix时间戳格式）、文件名和大小，以及一个大型的二进制数据块--包含我们要下载文件中每个分片的SHA-1哈希值。这些分片是文件的大小相等的部分。一个片段的确切大小因种子而异，但它们通常在256KB到1MB之间。这意味着一个大文件可能由数千个分片组成。我们将从节点下载这些分片，将它们与我们的torrent文件中的哈希值进行比对，将它们组装起来，我们就能得到一个完整的文件了。
 
-![文件分片](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filepieces.png)
+![文件分片](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filepieces.webp)
 
 这种机制使我们能够在下载过程中验证每个分片的完整性。这使得BitTorrent能够抵御意外损坏或恶意种子污染攻击。除非攻击者能够通过<HoverNote triggerText="原像攻击" :note="text_preimage_attack"/>破解SHA-1算法，否则我们一定能够获得请求的准确内容。
 
@@ -153,7 +153,7 @@ func Open(r io.Reader) (*bencodeTorrent, error) {
 
 需要注意的一点是，我将`pieces`（之前是一个字符串）拆分成哈希切片（`[20]byte`），一边后续可以方便地访问单个哈希。我还计算了整个`bencoded`信息字典（包括文件名、大小和分片哈希）的SHA-1哈希值。我们将其称为**infohash**，当我们的tracker与对等节点通讯时，它会是Tracker和节点间识别文件的唯一标识符。其具体作用我们稍后会详细展开。
 
-![文件哈希示例图](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_fileinfo-hash.png)
+![文件哈希示例图](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_fileinfo-hash.webp)
 
 ```go {3,4}
 type TorrentFile struct {
@@ -198,7 +198,7 @@ func (t *TorrentFile) buildTrackerURL(peerID [20]byte, port uint16) (string, err
 - **`info_hash`**：用来表示我们要下载的文件。就是我们之前从bencoded`info`字典中计算得出的`infohash`，tracker将使用这个参数来确定要向我们展示哪些节点。
 - **`peer_id`**：用于向tracker和其它节点表示我们身份的20字节名称。我们只需要随机生成20个字节即可。实际的BitTorrent客户端会有像`-TR2940-k8hj0wgej6ch`的ID，用于表示客户端软件和版本，在该例子中，TR2940代表Transmission客户端2.94版本。
 
-![文件哈希和P2P节点哈希](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_fileinfo-hash-peer-id.png)
+![文件哈希和P2P节点哈希](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_fileinfo-hash-peer-id.webp)
 
 ## 解析tracker响应
 
@@ -217,7 +217,7 @@ e
 
 `Peers`是另一个长二进制内容，其包含每个Peer节点的IP地址。它由**每组6个字节**的数据构成。每组的前4个字节代表的是IP地址--每个字节对应IP中的一个数字。最后2字节代表端口号，以大端序`uint16`格式存储。**大端序**，或**网络字节序**意味着我们可以通过从左到右拼接字节来将其解释为整数。例如，字节`0x1A`和`0xE1`组合成`0x1AE1`,<HoverNote triggerText="即十进制的6681" :note="text_little_endian_decoded"/>。
 
-![地址解析](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_fileaddress.png)
+![地址解析](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_fileaddress.webp)
 
 ```go
 // 对等节点的连接信息
@@ -271,7 +271,7 @@ if err != nil {
 - 能够理解并回复我们的消息
 - 具有我们想要的文件，至少知道我们在说什么
 
-![消息握手](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filehandshake.png)
+![消息握手](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filehandshake.webp)
 
 就像人际交往中握手有讲究一样，BitTorrent协议也有自己的'握手'规范。一次完整的协议握手必须包含以下五个要素：
 
@@ -324,13 +324,13 @@ func Read(r io.Reader) (*Handshake, error) {
 
 一旦我们被解除阻塞（unchoked），就可以开始发送**分片请求**，而对方也可以向我们发送包含**数据分片**的回复消息。
 
-![文件分片消息传递](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filechoke.png)
+![文件分片消息传递](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filechoke.webp)
 
 ### 解释消息
 
 一条消息具有`length`、`ID`和`payload`，例如：
 
-![一条消息的结构示例](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filemessage.png)
+![一条消息的结构示例](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filemessage.webp)
 
 消息以长度指示器开头，该字段告知我们消息的总字节长度。它是一个32为整数，由四个字节按**大端序**拼接而成。
 随后一个字节是消息ID，表明接收的消息类型--例如ID值2表示`interested`（感兴趣）。最后是可选的`payload`（有效载荷），占据消息的剩余长度。
@@ -406,7 +406,7 @@ func Read(r io.Reader) (*Message, error) {
 
 最有意思的报文类型之一是**位域（bitfield）**，这是一种节点用来高效编码其可提供分片的数据结构。位域看起来就像是一个字节数组，要检查节点拥有哪些分片，我们只需要查看哪些位被**设置为1**。你可以将其看作是游乐园发给你的打卡小册子：初始是一个**全0**的空白本本，通过将特定比特位翻转成1来标记‘已打卡’的位置。
 
-![bitfield](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filebitfield.png)
+![bitfield](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filebitfield.webp)
 
 通过使用*位*而不是*字节*，这种数据结构会非常紧凑。我们可以在单个字节的空间（一个布尔值大小）中塞入八个数据的信息。代价是访问时会稍微复杂些。计算机可寻址的最小内存单元是字节，因此如果要获取我们的比特位，我们必须进行一些**位操作**：
 
@@ -571,7 +571,7 @@ func (state *pieceProgress) readMessage() error {
 
 网络往返通信的成本很高，若逐块发起请求将会严重拖累下载性能。因此必须采用流水线请求机制：保持一定数量的未完成请求。这能将连接吞吐量提升一个数量级。
 
-![文件分块发送示例](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filepipelining.png)
+![文件分块发送示例](/images/翻译/在go中从头开始构建BitTorrent客户端/tmp_filepipelining.webp)
 
 传统上，BT客户端会保持5个流水线请求的队列，这也是我将采用的值。我发现增加队列大小最高可提升一倍的下载速度。较新的客户端采用[自适应队列](https://luminarys.com/posts/writing-a-bittorrent-client.html)大小，以更好地适应现代网络速度和条件。这绝对是一个值得调整的参数，也是未来性能优化中唾手可得的成果。
 
