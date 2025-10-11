@@ -1,0 +1,429 @@
+<template>
+    <div class="game-container" tabindex="0" @keydown="handleKeydown" ref="gameContainer">
+        <h1>2048 Game</h1>
+        <div class="board">
+            <div v-for="(row, i) in board" :key="i" class="row">
+                <div v-for="(cell, j) in row" :key="`${i}-${j}`" class="cell" :class="`cell-${cell}`">
+                    <div v-if="cell !== 0" class="tile" :class="{
+                        'new-tile': isNewTile(i, j),
+                        'merged-tile': isMergedTile(i, j)
+                    }">
+                        {{ cell }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="gameOver" class="game-over">Game Over!</div>
+        <button @click="initGame" class="restart-button">Restart Game</button>
+    </div>
+</template>
+
+<script setup>
+import { ref, onMounted, reactive, nextTick } from 'vue'
+
+// 响应式状态
+const board = ref(Array(4).fill().map(() => Array(4).fill(0)))
+const gameOver = ref(false)
+const gameContainer = ref(null)
+const newTiles = ref([]) // 存储新添加的卡片位置
+const mergedTiles = ref([]) // 存储合并的卡片位置
+
+// 初始化游戏
+function initGame() {
+    // 重置棋盘为全0
+    board.value = Array(4).fill().map(() => Array(4).fill(0))
+    gameOver.value = false
+    newTiles.value = []
+    mergedTiles.value = []
+
+    // 随机添加两个初始数字2
+    addRandomTile()
+    addRandomTile()
+
+    // 确保游戏容器获得焦点
+    if (gameContainer.value) {
+        gameContainer.value.focus()
+    }
+}
+
+// 检查是否为新卡片
+function isNewTile(i, j) {
+    return newTiles.value.some(tile => tile.i === i && tile.j === j)
+}
+
+// 检查是否为合并的卡片
+function isMergedTile(i, j) {
+    return mergedTiles.value.some(tile => tile.i === i && tile.j === j)
+}
+
+// 添加随机卡片到空格
+function addRandomTile() {
+    const emptyCells = []
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (board.value[i][j] === 0) {
+                emptyCells.push({ i, j })
+            }
+        }
+    }
+    if (emptyCells.length > 0) {
+        const randIndex = Math.floor(Math.random() * emptyCells.length)
+        const { i, j } = emptyCells[randIndex]
+        // 创建新棋盘副本并更新，以确保响应式
+        const newBoard = JSON.parse(JSON.stringify(board.value))
+        newBoard[i][j] = 2
+        board.value = newBoard
+
+        // 标记为新卡片
+        newTiles.value.push({ i, j })
+
+        // 一段时间后移除新卡片标记
+        setTimeout(() => {
+            const index = newTiles.value.findIndex(tile => tile.i === i && tile.j === j)
+            if (index !== -1) {
+                newTiles.value.splice(index, 1)
+            }
+        }, 300)
+    }
+}
+
+// 向左移动一行并合并
+function moveRowLeft(row) {
+    const newRow = [0, 0, 0, 0]
+    let pos = 0
+    const merged = []
+
+    for (let i = 0; i < 4; i++) {
+        if (row[i] !== 0) {
+            if (pos > 0 && newRow[pos - 1] === row[i]) {
+                newRow[pos - 1] *= 2
+                merged.push(pos - 1) // 记录合并位置
+            } else {
+                newRow[pos] = row[i]
+                pos++
+            }
+        }
+    }
+
+    return { newRow, merged }
+}
+
+// 向右移动一行并合并（通过反转实现）
+function moveRowRight(row) {
+    const reversed = row.slice().reverse()
+    const { newRow: newReversed, merged: reversedMerged } = moveRowLeft(reversed)
+    const newRow = newReversed.reverse()
+    // 调整合并位置（因为行被反转了）
+    const merged = reversedMerged.map(pos => 3 - pos)
+    return { newRow, merged }
+}
+
+// 处理棋盘移动
+function move(direction) {
+    if (gameOver.value) return // 游戏结束后忽略移动
+
+    const oldBoard = JSON.parse(JSON.stringify(board.value)) // 深拷贝旧棋盘
+    let newBoard
+    mergedTiles.value = [] // 清空合并记录
+
+    switch (direction) {
+        case 'left':
+            newBoard = []
+            for (let i = 0; i < 4; i++) {
+                const { newRow, merged } = moveRowLeft(board.value[i])
+                newBoard.push(newRow)
+                // 记录合并的卡片
+                merged.forEach(j => mergedTiles.value.push({ i, j }))
+            }
+            break
+        case 'right':
+            newBoard = []
+            for (let i = 0; i < 4; i++) {
+                const { newRow, merged } = moveRowRight(board.value[i])
+                newBoard.push(newRow)
+                // 记录合并的卡片
+                merged.forEach(j => mergedTiles.value.push({ i, j }))
+            }
+            break
+        case 'up':
+            newBoard = Array(4).fill().map(() => Array(4).fill(0))
+            for (let j = 0; j < 4; j++) {
+                const col = board.value.map(row => row[j])
+                const { newRow: newCol, merged } = moveRowLeft(col)
+                for (let i = 0; i < 4; i++) {
+                    newBoard[i][j] = newCol[i]
+                }
+                // 记录合并的卡片
+                merged.forEach(i => mergedTiles.value.push({ i, j }))
+            }
+            break
+        case 'down':
+            newBoard = Array(4).fill().map(() => Array(4).fill(0))
+            for (let j = 0; j < 4; j++) {
+                const col = board.value.map(row => row[j])
+                const { newRow: newCol, merged } = moveRowRight(col)
+                for (let i = 0; i < 4; i++) {
+                    newBoard[i][j] = newCol[i]
+                }
+                // 记录合并的卡片
+                merged.forEach(i => mergedTiles.value.push({ i, j }))
+            }
+            break
+        default:
+            return
+    }
+
+    // 检查移动是否有效（棋盘是否变化）
+    if (JSON.stringify(oldBoard) !== JSON.stringify(newBoard)) {
+        board.value = newBoard
+
+        // 一段时间后移除合并标记
+        setTimeout(() => {
+            mergedTiles.value = []
+        }, 300)
+
+        // 添加新卡片
+        addRandomTile()
+        checkGameOver()
+    }
+}
+
+// 检查游戏是否结束
+function checkGameOver() {
+    // 检查是否有空格
+    let hasEmpty = false
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (board.value[i][j] === 0) {
+                hasEmpty = true
+                break
+            }
+        }
+        if (hasEmpty) break
+    }
+    if (hasEmpty) {
+        gameOver.value = false
+        return
+    }
+
+    // 检查是否有可能的合并
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            // 检查右侧单元格
+            if (j < 3 && board.value[i][j] === board.value[i][j + 1]) {
+                gameOver.value = false
+                return
+            }
+            // 检查下方单元格
+            if (i < 3 && board.value[i][j] === board.value[i + 1][j]) {
+                gameOver.value = false
+                return
+            }
+        }
+    }
+    // 无空格且无可能合并，游戏结束
+    gameOver.value = true
+}
+
+// 处理键盘事件
+function handleKeydown(event) {
+    // 阻止方向键的默认行为（滚动页面）
+    if (['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].includes(event.key)) {
+        event.preventDefault()
+    }
+
+    switch (event.key) {
+        case 'ArrowLeft':
+            move('left')
+            break
+        case 'ArrowUp':
+            move('up')
+            break
+        case 'ArrowRight':
+            move('right')
+            break
+        case 'ArrowDown':
+            move('down')
+            break
+    }
+}
+
+// 生命周期钩子
+onMounted(() => {
+    initGame()
+    // 确保游戏容器获得焦点
+    if (gameContainer.value) {
+        gameContainer.value.focus()
+    }
+})
+</script>
+
+<style scoped>
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    outline: none;
+    /* 移除焦点时的默认轮廓 */
+}
+
+.board {
+    background-color: #bbada0;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    background-color: #cdc1b4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 3px;
+    position: relative;
+}
+
+.tile {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: all 0.15s ease;
+    /* 为卡片移动添加过渡效果 */
+}
+
+/* 新卡片向上浮动特效 */
+.new-tile {
+    animation: floatUp 0.3s ease;
+}
+
+/* 合并卡片缩放特效 */
+.merged-tile {
+    animation: pop 0.3s ease;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* 为不同数字添加颜色样式 */
+.cell-2 .tile {
+    background-color: #eee4da;
+    color: #776e65;
+}
+
+.cell-4 .tile {
+    background-color: #ede0c8;
+    color: #776e65;
+}
+
+.cell-8 .tile {
+    background-color: #f2b179;
+    color: #f9f6f2;
+}
+
+.cell-16 .tile {
+    background-color: #f59563;
+    color: #f9f6f2;
+}
+
+.cell-32 .tile {
+    background-color: #f67c5f;
+    color: #f9f6f2;
+}
+
+.cell-64 .tile {
+    background-color: #f65e3b;
+    color: #f9f6f2;
+}
+
+.cell-128 .tile {
+    background-color: #edcf72;
+    color: #f9f6f2;
+    font-size: 18px;
+}
+
+.cell-256 .tile {
+    background-color: #edcc61;
+    color: #f9f6f2;
+    font-size: 18px;
+}
+
+.cell-512 .tile {
+    background-color: #edc850;
+    color: #f9f6f2;
+    font-size: 18px;
+}
+
+.cell-1024 .tile {
+    background-color: #edc53f;
+    color: #f9f6f2;
+    font-size: 16px;
+}
+
+.cell-2048 .tile {
+    background-color: #edc22e;
+    color: #f9f6f2;
+    font-size: 16px;
+}
+
+.game-over {
+    margin: 10px 0;
+    font-size: 24px;
+    color: red;
+    font-weight: bold;
+}
+
+.restart-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #8f7a66;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.restart-button:hover {
+    background-color: #7c6a5a;
+}
+</style>

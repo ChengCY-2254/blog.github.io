@@ -64,6 +64,10 @@ const sidebar: DefaultTheme.SidebarItem[] | DefaultTheme.SidebarMulti = {
         {
             text: '思维导图工具',
             link: '/tools/mindmap',
+        },
+        {
+            text: '2048',
+            link: '/tools/2048'
         }
     ]
 }

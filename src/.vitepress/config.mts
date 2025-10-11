@@ -10,7 +10,7 @@ const mail_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24
 export default withMermaid(
   defineConfig({
     ignoreDeadLinks:true,
-    assetsDir: '/src/images',
+    // assetsDir: '/src/images',
     sitemap: {
       hostname: 'https://www.hutao.run',
       lastmodDateOnly: true,
