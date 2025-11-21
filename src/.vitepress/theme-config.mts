@@ -46,7 +46,8 @@ const sidebar: DefaultTheme.SidebarItem[] | DefaultTheme.SidebarMulti = {
             { text: 'teamspeak服务器搭建', link: '/notes/teamspeak服务器搭建' },
             { text: 'Shadowsocks服务端搭建', link: '/notes/Shadowsocks服务端搭建' },
             { text: 'Shadow-TLS安装指南', link: '/notes/Shadow-TLS安装指南'},
-            { text: 'risc-v下关于trap汇编的处理', link: '/notes/risc-v-trap-asm'}
+            { text: 'risc-v下关于trap汇编的处理', link: '/notes/risc-v-trap-asm'},
+            { text: '记一次流感',link:'/notes/Influenza'}
         ]
     }],
     '/': [
