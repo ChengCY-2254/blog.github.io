@@ -47,7 +47,8 @@ const sidebar: DefaultTheme.SidebarItem[] | DefaultTheme.SidebarMulti = {
             { text: 'Shadowsocks服务端搭建', link: '/notes/Shadowsocks服务端搭建' },
             { text: 'Shadow-TLS安装指南', link: '/notes/Shadow-TLS安装指南'},
             { text: 'risc-v下关于trap汇编的处理', link: '/notes/risc-v-trap-asm'},
-            { text: '2025-11-18 记一次流感',link:'/notes/20251118-Influenza'}
+            { text: '2025-11-18 记一次流感',link:'/notes/20251118-Influenza'},
+            { text: '使用mist下载以往版本的macOS', link:'/notes/mist-download'}
         ]
     }],
     '/': [
